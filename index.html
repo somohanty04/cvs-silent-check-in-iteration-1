@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CVS Silent Check-In · Iteration 1</title>
+<style>
+:root{--ground:#E9E7E3;--ink:#1A1A19;--muted:#5E5D5A}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--ground);color:var(--ink);font-family:-apple-system,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
+.bar{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:14px 16px 0;font-size:14px;color:var(--muted)}
+.bar strong{color:var(--ink);font-weight:700}
+.bar select,.bar button{min-height:36px;padding:6px 12px;border:1px solid #C6C6C8;border-radius:18px;background:#fff;color:var(--ink);font-size:14px;cursor:pointer}
+.stage{display:flex;justify-content:center;padding:14px 16px 24px}
+.device{position:relative;border-radius:48px;overflow:hidden;box-shadow:0 0 0 10px #1A1A19,0 18px 50px rgba(0,0,0,.28);background:#fff}
+.screen{width:402px;height:874px;transform-origin:0 0}
+.hint{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 20px}
+body.bare{background:#fff}
+body.bare .bar,body.bare .hint{display:none}
+body.bare .stage{padding:0;display:block}
+body.bare .device{border-radius:0;box-shadow:none}
+@media (max-width:520px){
+  .bar,.hint{display:none}
+  .stage{padding:0}
+  .device{border-radius:0;box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <strong>CVS Silent Check-In · Iteration 1</strong>
+  <label for="jump" style="position:absolute;left:-9999px">Jump to screen</label>
+  <select id="jump"></select>
+  <button type="button" id="restart">Restart</button>
+</div>
+<div class="stage"><div class="device" id="device"><div class="screen" id="screen"></div></div></div>
+<p class="hint">Happy path only: tap the blue buttons and cards to move through the flow.</p>
+
+<template id="t-Main" data-title="01 · Prescriptions (entry)"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #FFFFFF;">
+
+  <div style="height: 59px; flex-shrink: 0; background: #FFFFFF;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 10px 16px; background: #FFFFFF;">
+    <h1 style="margin: 0; font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.2px;">Prescriptions</h1>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <a href="04-MessagePharmacist.dc.html" aria-label="Chat with CVS" style="width: 40px; height: 40px; border-radius: 20px; background: #E8F3FE; border: 1px solid #B4CAE1; color: #0066CC; display: flex; align-items: center; justify-content: center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.8A8 8 0 1 1 21 12z"></path></svg></a>
+      <a href="08-Cart.dc.html" aria-label="Cart" style="width: 40px; height: 40px; border-radius: 20px; background: #F4F4F4; color: #1A1A19; display: flex; align-items: center; justify-content: center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h2.2l2.4 11.2a1.8 1.8 0 0 0 1.8 1.4h8.4a1.8 1.8 0 0 0 1.8-1.4L21 7H6"></path><circle cx="9.5" cy="20" r="1.3"></circle><circle cx="17.5" cy="20" r="1.3"></circle></svg></a>
+    </div>
+  </div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: #F9F7F5;">
+    <button type="button" aria-label="Filter prescriptions" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; border: 1px solid #C6C6C8; color: #1A1A19; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5h17l-6.6 7.6V19l-3.8 2v-8.4z"></path></svg></button>
+    <button type="button" style="min-height: 44px; padding: 11px 18px; display: flex; align-items: center; gap: 8px; border-radius: 22px; background: #FFFFFF; border: 1px solid #C6C6C8; color: #1A1A19; font-size: 16px; line-height: 20px; font-weight: 500;">
+      <span>Last 6 months</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"></path></svg>
+    </button>
+  </div>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; background: linear-gradient(#F2F7FC, #FCFDFE); padding-bottom: 120px;">
+
+    <a href="02-SkipCounter.dc.html" style="display: flex; align-items: center; gap: 12px; margin: 16px; padding: 16px; box-sizing: border-box; background: #E8F3FE; border: 1px solid #B4CAE1; border-radius: 16px; color: #1A1A19;">
+      <span style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 22px; background: #004D99; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5.5 6.8 9H3.5v6h3.3L11 18.5z"></path><path d="M16.5 9.5 21 14"></path><path d="M21 9.5 16.5 14"></path></svg></span>
+      <span style="flex-grow: 1;">
+        <span style="display: block; font-size: 18px; line-height: 24px; font-weight: 700; color: #004D99;">Silent check-in — you're at #4471</span>
+        <span style="display: block; font-size: 16px; line-height: 20px; color: #5E5D5A; margin-top: 2px;">Skip the counter. We'll text you when your Rx is ready.</span>
+      </span>
+      <span style="color: #004D99; display: flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+    </a>
+
+    <div style="display: flex; gap: 12px; padding: 0 16px; overflow: hidden;">
+      <div style="width: 330px; flex-shrink: 0; padding: 16px; box-sizing: border-box; background: #FFFFFF; border-radius: 16px; display: flex; gap: 12px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 20px; line-height: 24px; font-weight: 700;">Support someone you care about</div>
+          <div style="font-size: 16px; line-height: 20px; color: #1A1A19; margin-top: 6px;">Help manage prescriptions and stay connected to their care.</div>
+          <div style="font-size: 16px; line-height: 20px; font-weight: 500; color: #0066CC; margin-top: 10px;">Manage care</div>
+        </div>
+        <div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #F2F7FC; color: #B4CAE1; display: flex; align-items: center; justify-content: center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"></circle><path d="M3.5 19a5.5 5.5 0 0 1 11 0"></path><circle cx="17.5" cy="9.5" r="2.4"></circle><path d="M15 19a4.2 4.2 0 0 1 5.8-3.9"></path></svg></div>
+      </div>
+      <div style="width: 330px; flex-shrink: 0; padding: 16px; box-sizing: border-box; background: #FFFFFF; border-radius: 16px;">
+        <div style="font-size: 20px; line-height: 24px; font-weight: 700;">Care for the whole family</div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px;">
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: #1A1A19;"></span>
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: #FFFFFF; border: 1px solid #C6C6C8; box-sizing: border-box;"></span>
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: #FFFFFF; border: 1px solid #C6C6C8; box-sizing: border-box;"></span>
+    </div>
+
+    <h2 style="margin: 20px 16px 0 16px; font-size: 24px; line-height: 32px; font-weight: 700;">2 prescriptions</h2>
+
+    <div style="margin: 12px 16px 0 16px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px;">
+      <div style="font-size: 20px; line-height: 24px; font-weight: 700;">Sulfamethoxazole-Tmp Ds Tablet</div>
+      <div style="font-size: 16px; line-height: 20px; color: #5E5D5A; margin-top: 6px;">Last picked up Jun 04, 2026 &nbsp;|&nbsp; 0 fills left</div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+        <span style="color: #1A1A19; display: flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18.5c3-1 4.5-9.5 7.5-9.5 2 0 1 5 3 5 1.6 0 2.6-2.5 3.4-2.5"></path><path d="M18.5 16.5H21"></path></svg></span>
+        <span style="font-size: 18px; line-height: 24px; font-weight: 700;">Needs new prescription</span>
+      </div>
+      <div style="font-size: 16px; line-height: 20px; color: #1A1A19; margin-top: 8px;">Place your order and we'll reach out to your prescriber for a new prescription.</div>
+      <div style="height: 1px; background: #D8D8D5; margin: 14px 0;"></div>
+      <div style="display: flex; gap: 8px;">
+        <a href="02-SkipCounter.dc.html" style="flex-grow: 1; text-align: center; padding: 13px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 24px; font-size: 16px; line-height: 20px; font-weight: 700;">Refill</a>
+        <a href="02-SkipCounter.dc.html" style="flex-grow: 1; text-align: center; padding: 13px; box-sizing: border-box; background: #FFFFFF; color: #004D99; border: 1px solid #004D99; border-radius: 24px; font-size: 16px; line-height: 20px; font-weight: 500;">Details</a>
+      </div>
+    </div>
+
+  </div>
+
+  <nav style="position: absolute; left: 16px; right: 16px; bottom: 34px; height: 62px; display: flex; align-items: center; padding: 0 4px; box-sizing: border-box; background: #FFFFFF; border-radius: 31px; box-shadow: 0 2px 14px rgba(0,0,0,0.13);">
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5.5 9.5V21h13V9.5"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Home</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #CC0000;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="13" height="13" rx="3"></rect><path d="M7.5 3.5H17a3.5 3.5 0 0 1 3.5 3.5v9.5"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Prescriptions</span></a>
+    <a href="08-Cart.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.6L13 21l-2.5-1.6L8 21l-2-1.6z"></path><path d="M9 8h6M9 12h6"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Orders</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.8"></circle><path d="M10.5 7.2v6.6"></path><path d="M12.4 8.6H9.6a1.5 1.5 0 0 0 0 3h1.8a1.5 1.5 0 0 1 0 3H8.6"></path><path d="M15.4 15.4 21 21"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Spending</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5.5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="18.5" cy="12" r="1.6"></circle></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">More</span></a>
+  </nav>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="Main">
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-02-SkipCounter" data-title="02 · Skip the counter"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; background: #F9F7F5;">
+
+  <div style="background: #004D99; padding: 59px 16px 20px 16px; box-sizing: border-box;">
+    <a href="Main.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #FFFFFF;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <h1 style="margin: 4px 0 0 0; font-size: 24px; line-height: 32px; font-weight: 700; color: #FFFFFF;">Skip the counter</h1>
+    <p style="margin: 6px 0 0 0; font-size: 16px; line-height: 20px; color: #FFFFFF;">Let us know you're here without speaking. We'll text you when your prescription is ready.</p>
+    <p style="margin: 16px 0 8px 0; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #E8F3FE;">TELL THE TEAM HOW TO HELP (OPTIONAL)</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <sc-for list="{{chips}}" as="chip" hint-placeholder-count="4">
+        <button type="button" onClick="{{ chip.pick }}" style="{{ chip.style }}">{{ chip.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: 20px 16px 0 16px;">
+    <p style="margin: 0 0 8px 0; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">STEP 1 — CHECK IN</p>
+
+    <div style="background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 16px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 13px; line-height: 18px; color: #5E5D5A;">Picking up for</div>
+          <div style="font-size: 20px; line-height: 24px; font-weight: 700; margin-top: 2px;">Margaret T.</div>
+        </div>
+        <button type="button" style="min-height: 44px; padding: 10px 18px; background: #FFFFFF; color: #004D99; border: 1px solid #004D99; border-radius: 22px; font-size: 16px; line-height: 20px; font-weight: 500;">Change</button>
+      </div>
+      <div style="height: 1px; background: #D8D8D5;"></div>
+      <div style="padding: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 18px; color: #1E7A6F; margin-bottom: 12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+          <span>2 prescriptions waiting · CVS #4471 Shadyside</span>
+        </div>
+        <a href="03-CheckedIn.dc.html" style="display: block; text-align: center; padding: 16px; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">I'm here</a>
+      </div>
+    </div>
+
+    <p style="margin: 20px 0 8px 0; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">STEP 2 — MESSAGE THE PHARMACIST (OPTIONAL)</p>
+    <p style="margin: 0 0 12px 0; font-size: 16px; line-height: 20px; color: #5E5D5A;">After you check in you can send a pre-written message. A team member will find you in the store.</p>
+
+    <div style="background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 12px; opacity: 0.55;">
+      <span style="color: #8F8C89; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.8A8 8 0 1 1 21 12z"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">Unlocks once you're checked in</span>
+      <span style="color: #C6C6C8; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="02-SkipCounter">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: {} };
+  }
+  renderVals() {
+    var labels = ['Deaf / Hard of hearing', 'Non-verbal', 'Language barrier', 'Prefer not to speak'];
+    var self = this;
+    var base = 'min-height: 44px; padding: 11px 16px; border-radius: 22px; font-size: 16px; line-height: 20px; font-weight: 500; cursor: pointer; ';
+    return {
+      chips: labels.map(function (label, i) {
+        var on = !!self.state.picked[i];
+        return {
+          label: label,
+          style: base + (on
+            ? 'background: #FFFFFF; color: #004D99; border: 2px solid #FFFFFF;'
+            : 'background: transparent; color: #FFFFFF; border: 1px solid #B4CAE1;'),
+          pick: function () {
+            var next = Object.assign({}, self.state.picked);
+            next[i] = !next[i];
+            self.setState({ picked: next });
+          }
+        };
+      })
+    };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+button{font:inherit}
+</style>
+<template id="t-03-CheckedIn" data-title="03 · Checked in + wait"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #F9F7F5;">
+
+  <div style="height: 59px; flex-shrink: 0;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 8px 16px;">
+    <a href="02-SkipCounter.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 18px; line-height: 24px; font-weight: 700;">Silent check-in</span>
+    <a href="08-Cart.dc.html" aria-label="Cart" style="width: 44px; height: 44px; margin-right: -10px; display: flex; align-items: center; justify-content: flex-end; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h2.2l2.4 11.2a1.8 1.8 0 0 0 1.8 1.4h8.4a1.8 1.8 0 0 0 1.8-1.4L21 7H6"></path><circle cx="9.5" cy="20" r="1.3"></circle><circle cx="17.5" cy="20" r="1.3"></circle></svg></a>
+  </div>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-bottom: 120px;">
+
+  <div style="display: flex; align-items: center; gap: 12px; margin: 8px 16px 0 16px; padding: 16px; box-sizing: border-box; background: #E6F4F1; border: 1px solid #1E7A6F; border-radius: 16px;">
+    <span style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 22px; background: #1E7A6F; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg></span>
+    <span style="flex-grow: 1;">
+      <h1 style="margin: 0; font-size: 22px; line-height: 28px; font-weight: 700;">You're checked in</h1>
+      <p style="margin: 2px 0 0 0; font-size: 16px; line-height: 20px; color: #1A1A19;">The pharmacy team knows you're here. No need to speak.</p>
+    </span>
+  </div>
+
+  <div style="margin: 16px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+      <span style="font-size: 20px; line-height: 24px; font-weight: 700;">Ready in about 12 min</span>
+      <span style="font-size: 13px; line-height: 18px; color: #5E5D5A;">9:41 AM</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 6px; margin-top: 16px;">
+      <span style="width: 12px; height: 12px; border-radius: 6px; background: #1E7A6F;"></span>
+      <span style="flex-grow: 1; height: 3px; background: #1E7A6F;"></span>
+      <span style="width: 12px; height: 12px; border-radius: 6px; background: #004D99;"></span>
+      <span style="flex-grow: 1; height: 3px; background: #DEDEDE;"></span>
+      <span style="width: 12px; height: 12px; border-radius: 6px; background: #DEDEDE;"></span>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+      <span style="font-size: 11px; line-height: 14px; font-weight: 500; color: #1E7A6F;">Checked in</span>
+      <span style="font-size: 11px; line-height: 14px; font-weight: 500; color: #004D99;">Preparing</span>
+      <span style="font-size: 11px; line-height: 14px; font-weight: 500; color: #5E5D5A;">Ready</span>
+    </div>
+
+    <div style="height: 1px; background: #D8D8D5; margin: 16px 0;"></div>
+
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="color: #5E5D5A; display: flex; padding-top: 1px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"></rect><path d="M10.5 18.5h3"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 13px; line-height: 18px; color: #5E5D5A;">We'll text (412) •••-4417 the moment it's ready. You can leave the pharmacy area.</span>
+    </div>
+  </div>
+
+  <a href="04-MessagePharmacist.dc.html" style="display: flex; align-items: center; gap: 12px; margin: 0 16px; padding: 16px; box-sizing: border-box; background: #E8F3FE; border: 1px solid #B4CAE1; border-radius: 16px; color: #1A1A19;">
+    <span style="color: #004D99; display: flex;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.8A8 8 0 1 1 21 12z"></path></svg></span>
+    <span style="flex-grow: 1;">
+      <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500; color: #004D99;">Message the pharmacist</span>
+      <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A;">Send a pre-written note instead of talking</span>
+    </span>
+    <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+  </a>
+
+  <p style="margin: 24px 16px 8px 16px; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">WHILE YOU WAIT</p>
+
+  <div style="margin: 0 16px; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: #FDF3E0; border-bottom: 1px solid #D8D8D5;">
+      <span style="color: #8A5A00; display: flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5V6a1.5 1.5 0 0 1 1.5-1.5h15A1.5 1.5 0 0 1 21 6v2.5a3.5 3.5 0 0 0 0 7V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18v-2.5a3.5 3.5 0 0 0 0-7z"></path><path d="M14 8.5l-4 7"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 13px; line-height: 18px; font-weight: 500; color: #8A5A00;">3 in-store coupons are waiting on things you buy</span>
+    </div>
+    <a href="06-RunningLow.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; color: #1A1A19;">
+      <span style="flex-grow: 1;">
+        <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500;">Check deals for what you're running low on</span>
+        <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 2px;">5 items · 3 have coupons today</span>
+      </span>
+      <span style="color: #8F8C89; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+    </a>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <a href="07-BuyAgain.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; color: #1A1A19;">
+      <span style="flex-grow: 1;">
+        <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500;">Check deals for what you usually buy</span>
+        <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 2px;">Your usual list · 2 on offer</span>
+      </span>
+      <span style="color: #8F8C89; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+    </a>
+  </div>
+
+  </div>
+
+  <nav style="position: absolute; left: 16px; right: 16px; bottom: 34px; height: 62px; display: flex; align-items: center; padding: 0 4px; box-sizing: border-box; background: #FFFFFF; border-radius: 31px; box-shadow: 0 2px 14px rgba(0,0,0,0.13);">
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5.5 9.5V21h13V9.5"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Home</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #CC0000;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="13" height="13" rx="3"></rect><path d="M7.5 3.5H17a3.5 3.5 0 0 1 3.5 3.5v9.5"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Prescriptions</span></a>
+    <a href="08-Cart.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.6L13 21l-2.5-1.6L8 21l-2-1.6z"></path><path d="M9 8h6M9 12h6"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Orders</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.8"></circle><path d="M10.5 7.2v6.6"></path><path d="M12.4 8.6H9.6a1.5 1.5 0 0 0 0 3h1.8a1.5 1.5 0 0 1 0 3H8.6"></path><path d="M15.4 15.4 21 21"></path></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">Spending</span></a>
+    <a href="Main.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; color: #5E5D5A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5.5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="18.5" cy="12" r="1.6"></circle></svg><span style="font-size: 11px; line-height: 14px; font-weight: 500;">More</span></a>
+  </nav>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="03-CheckedIn">
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-04-MessagePharmacist" data-title="04 · Message the pharmacist"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; background: #F9F7F5;">
+
+  <div style="height: 59px;"></div>
+
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px 8px 16px;">
+    <a href="03-CheckedIn.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 18px; line-height: 24px; font-weight: 700;">Message the pharmacist</span>
+    <span style="width: 44px;"></span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 8px; margin: 0 16px 12px 16px; padding: 10px 12px; box-sizing: border-box; background: #E6F4F1; border-radius: 12px;">
+    <span style="color: #1E7A6F; display: flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg></span>
+    <span style="font-size: 13px; line-height: 18px; color: #1A1A19;">Checked in at 9:41 AM · Dana K. is on the counter</span>
+  </div>
+
+  <p style="margin: 0 16px 12px 16px; font-size: 16px; line-height: 20px; color: #5E5D5A;">Tap to send. A team member will come find you in the store — you won't be called by name.</p>
+
+  <div style="margin: 0 16px; display: flex; flex-direction: column; gap: 8px;">
+
+    <a href="05-MessageSent.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; color: #1A1A19;">
+      <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.4"></rect><path d="M9 7.5h6M9 12h6M9 16h3"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">I need to pick up a prescription</span>
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+    </a>
+
+    <a href="05-MessageSent.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; color: #1A1A19;">
+      <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-38 12 12)"></rect><path d="M12 12 8.6 8.6"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">I have a question about my medication</span>
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+    </a>
+
+    <a href="05-MessageSent.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; color: #1A1A19;">
+      <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.2 9.5h17.6M3.2 14.5h17.6"></path><path d="M12 3c2.6 3 2.6 15 0 18-2.6-3-2.6-15 0-18z"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">I need a translator — Spanish / Chinese / Other</span>
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+    </a>
+
+    <a href="05-MessageSent.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; color: #1A1A19;">
+      <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17z"></path><path d="M14.5 6.5 17.5 9.5"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">Please write to me instead of speaking</span>
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+    </a>
+
+    <a href="05-MessageSent.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; color: #1A1A19;">
+      <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.2 16.2 21 21"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">Help me find something in the store</span>
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+    </a>
+
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 34px; padding: 12px 16px 16px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5;">
+    <label for="own" style="display: block; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A; margin-bottom: 6px;">OR WRITE YOUR OWN</label>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <input id="own" type="text" placeholder="Type a message to the pharmacy team" style="flex-grow: 1; min-height: 44px; padding: 12px 14px; box-sizing: border-box; background: #F9F7F5; border: 1px solid #C6C6C8; border-radius: 8px; font-size: 16px; line-height: 20px; color: #1A1A19;">
+      <a href="05-MessageSent.dc.html" aria-label="Send message" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 22px; background: #004D99; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12 21 4l-8 17.5-2.4-7z"></path></svg></a>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="04-MessagePharmacist">
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+input{font:inherit}
+</style>
+<template id="t-05-MessageSent" data-title="05 · Sent + reply"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #F9F7F5;">
+
+  <div style="height: 59px; flex-shrink: 0;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 12px 16px; border-bottom: 1px solid #D8D8D5;">
+    <a href="04-MessagePharmacist.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="text-align: center;">
+      <span style="display: block; font-size: 18px; line-height: 24px; font-weight: 700;">Pharmacy · #4471</span>
+      <span style="display: block; font-size: 11px; line-height: 14px; font-weight: 500; color: #1E7A6F;">Dana K. is reading</span>
+    </span>
+    <span style="width: 44px;"></span>
+  </div>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 16px 60px 16px;">
+
+    <div style="text-align: center; font-size: 11px; line-height: 14px; font-weight: 500; color: #8F8C89; margin-bottom: 12px;">TODAY 9:42 AM</div>
+
+    <div style="display: flex; justify-content: flex-end;">
+      <div style="max-width: 280px; padding: 12px 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 12px; border-bottom-right-radius: 4px; font-size: 16px; line-height: 20px;">I need to pick up a prescription</div>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 4px; color: #1E7A6F;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+      <span style="font-size: 11px; line-height: 14px; font-weight: 500;">Delivered to the pharmacy team</span>
+    </div>
+
+    <div style="display: flex; align-items: flex-end; gap: 8px; margin-top: 20px;">
+      <span style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #CC0000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 18px; font-weight: 700;">DK</span>
+      <div style="max-width: 288px; padding: 12px 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #DEDEDE; border-radius: 12px; border-bottom-left-radius: 4px; font-size: 16px; line-height: 20px;">Got it, Margaret. I'm finishing your two prescriptions now. Come to register 2 when your phone buzzes — I'll wave, you won't need to say anything.</div>
+    </div>
+    <div style="font-size: 11px; line-height: 14px; color: #8F8C89; margin: 4px 0 0 40px;">9:43 AM</div>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-top: 20px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px;">
+      <span style="color: #004D99; display: flex;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5.2l3.4 2.1"></path></svg></span>
+      <span style="flex-grow: 1;">
+        <span style="display: block; font-size: 18px; line-height: 24px; font-weight: 700;">Ready in about 6 min</span>
+        <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A;">Updated by Dana K. · register 2</span>
+      </span>
+    </div>
+
+    <p style="margin: 24px 0 8px 0; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">WHILE YOU WAIT</p>
+
+    <div style="background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: #FDF3E0; border-bottom: 1px solid #D8D8D5;">
+        <span style="color: #8A5A00; display: flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5V6a1.5 1.5 0 0 1 1.5-1.5h15A1.5 1.5 0 0 1 21 6v2.5a3.5 3.5 0 0 0 0 7V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18v-2.5a3.5 3.5 0 0 0 0-7z"></path><path d="M14 8.5l-4 7"></path></svg></span>
+        <span style="flex-grow: 1; font-size: 13px; line-height: 18px; font-weight: 500; color: #8A5A00;">3 in-store coupons are waiting on things you buy</span>
+      </div>
+      <a href="06-RunningLow.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; color: #1A1A19;">
+        <span style="flex-grow: 1;">
+          <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500;">Check deals for what you're running low on</span>
+          <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 2px;">5 items · 3 have coupons today</span>
+        </span>
+        <span style="color: #8F8C89; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+      </a>
+      <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+      <a href="07-BuyAgain.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; color: #1A1A19;">
+        <span style="flex-grow: 1;">
+          <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500;">Check deals for what you usually buy</span>
+          <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 2px;">Your usual list · 2 on offer</span>
+        </span>
+        <span style="color: #8F8C89; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+      </a>
+      <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+      <a href="03-CheckedIn.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 16px; color: #1A1A19;">
+        <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">Back to check-in status</span>
+        <span style="color: #8F8C89; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span>
+      </a>
+    </div>
+
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="05-MessageSent">
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-06-RunningLow" data-title="06 · Running low"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #FFFFFF;">
+
+  <div style="height: 59px; flex-shrink: 0;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 8px 16px;">
+    <a href="03-CheckedIn.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 22px; line-height: 28px; font-weight: 700;">Running low?</span>
+    <a href="08-Cart.dc.html" aria-label="Cart" style="width: 44px; height: 44px; margin-right: -10px; display: flex; align-items: center; justify-content: flex-end; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h2.2l2.4 11.2a1.8 1.8 0 0 0 1.8 1.4h8.4a1.8 1.8 0 0 0 1.8-1.4L21 7H6"></path><circle cx="9.5" cy="20" r="1.3"></circle><circle cx="17.5" cy="20" r="1.3"></circle></svg></a>
+  </div>
+
+  <p style="flex-shrink: 0; margin: 4px 16px 0 16px; font-size: 16px; line-height: 20px; color: #5E5D5A;">Based on your purchase history. We estimate when you might run out — we can't see what's in your cupboard.</p>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 12px 16px;">
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 9px; height: 9px; border-radius: 5px; background: #8A5A00;"></span><span style="font-size: 13px; line-height: 18px; color: #8A5A00;">Possibly out</span></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 9px; height: 9px; border-radius: 5px; background: #5E5D5A;"></span><span style="font-size: 13px; line-height: 18px; color: #5E5D5A;">Getting close</span></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 9px; height: 9px; border-radius: 5px; background: #C6C6C8;"></span><span style="font-size: 13px; line-height: 18px; color: #5E5D5A;">Stocked</span></span>
+  </div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; gap: 10px; margin: 0 16px 12px 16px; padding: 11px 14px; box-sizing: border-box; background: #FDF3E0; border-radius: 12px;">
+    <span style="color: #8A5A00; display: flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5V6a1.5 1.5 0 0 1 1.5-1.5h15A1.5 1.5 0 0 1 21 6v2.5a3.5 3.5 0 0 0 0 7V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18v-2.5a3.5 3.5 0 0 0 0-7z"></path><path d="M14 8.5l-4 7"></path></svg></span>
+    <span style="flex-grow: 1; font-size: 13px; line-height: 18px; font-weight: 500; color: #8A5A00;">3 in-store coupons applied below — nothing to clip</span>
+  </div>
+
+  <div style="flex-shrink: 0; height: 1px; background: #D8D8D5; margin: 0 16px;"></div>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 16px 156px 16px;">
+    <sc-for list="{{items}}" as="item" hint-placeholder-count="5">
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid #D8D8D5;">
+        <div style="flex-grow: 1;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 9px; height: 9px; border-radius: 5px; background: {{item.dot}};"></span>
+            <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: {{item.statusColor}};">{{item.status}}</span>
+          </div>
+          <div style="font-size: 16px; line-height: 20px; font-weight: 500; margin-top: 3px;">{{item.name}}</div>
+          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 3px;">
+            <sc-if value="{{item.onSale}}" hint-placeholder-val="{{ true }}">
+              <span style="font-size: 16px; line-height: 20px; color: #5E5D5A; text-decoration: line-through;">{{item.wasPrice}}</span>
+            </sc-if>
+            <span style="font-size: 16px; line-height: 20px; font-weight: {{item.priceWeight}}; color: {{item.priceColor}};">{{item.price}}</span>
+            <sc-if value="{{item.onSale}}" hint-placeholder-val="{{ true }}">
+              <span style="padding: 2px 8px; background: #FDF3E0; border-radius: 4px; font-size: 11px; line-height: 14px; font-weight: 500; color: #8A5A00;">Coupon</span>
+            </sc-if>
+            <span style="padding: 2px 8px; background: #F4F4F4; border-radius: 4px; font-size: 11px; line-height: 14px; font-weight: 500; color: #5E5D5A;">{{item.tag}}</span>
+          </div>
+          <div style="font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 3px;">{{item.cadence}}</div>
+        </div>
+        <button type="button" onClick="{{ item.toggle }}" style="{{ item.btnStyle }}">{{ item.btnLabel }}</button>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 44px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5; box-shadow: 0 -2px 14px rgba(0,0,0,0.07);">
+    <a href="08-Cart.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">
+      <span>{{cartLabel}}</span>
+    </a>
+    <a href="07-BuyAgain.dc.html" style="display: block; text-align: center; margin-top: 10px; font-size: 16px; line-height: 20px; font-weight: 500;">See everything you buy again</a>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="06-RunningLow">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { added: { 0: true, 1: true } };
+  }
+  renderVals() {
+    var self = this;
+    var data = [
+      { name: 'CVS Health Vitamin D3 2000 IU, 200 ct', wasPrice: '$10.49', price: '$8.49', onSale: true, tag: 'Pharmacy', status: 'Bought 10w ago — possibly out', level: 'out', cadence: 'You usually buy this every 8 weeks.' },
+      { name: "Nature's Bounty Fish Oil 1400mg, 130 ct", wasPrice: '$21.99', price: '$17.99', onSale: true, tag: 'Health', status: 'Bought 9w ago — possibly out', level: 'out', cadence: 'You usually buy this every 8 weeks.' },
+      { name: 'Tylenol Extra Strength 500mg, 100 ct', price: '$9.99', onSale: false, tag: 'Health', status: 'Bought 7w ago — getting close', level: 'close', cadence: 'You usually buy this every 8 weeks.' },
+      { name: 'Neutrogena Hydro Boost Moisturizer', wasPrice: '$19.99', price: '$16.99', onSale: true, tag: 'Beauty', status: 'Bought 6w ago — getting close', level: 'close', cadence: 'You usually buy this every 8 weeks.' },
+      { name: 'Advil Ibuprofen 200mg, 200 ct', price: '$12.49', onSale: false, tag: 'Health', status: 'Bought 5w ago — stocked', level: 'stocked', cadence: 'You usually buy this every 8 weeks.' }
+    ];
+    var dots = { out: '#8A5A00', close: '#5E5D5A', stocked: '#C6C6C8' };
+    var textc = { out: '#8A5A00', close: '#5E5D5A', stocked: '#5E5D5A' };
+    var btnBase = 'min-width: 84px; min-height: 44px; padding: 11px 20px; border-radius: 22px; font-size: 16px; line-height: 20px; font-weight: 500; cursor: pointer; ';
+    var count = 0;
+    var items = data.map(function (d, i) {
+      var on = !!self.state.added[i];
+      if (on) { count = count + 1; }
+      return {
+        name: d.name,
+        price: d.price,
+        wasPrice: d.wasPrice,
+        onSale: !!d.onSale,
+        priceColor: d.onSale ? '#8A5A00' : '#1A1A19',
+        priceWeight: d.onSale ? '700' : '400',
+        tag: d.tag,
+        status: d.status,
+        cadence: d.cadence,
+        dot: dots[d.level],
+        statusColor: textc[d.level],
+        btnLabel: on ? 'Added' : 'Add',
+        btnStyle: btnBase + (on
+          ? 'background: #E8F3FE; color: #004D99; border: 1px solid #004D99;'
+          : 'background: #004D99; color: #FFFFFF; border: 1px solid #004D99;'),
+        toggle: function () {
+          var next = Object.assign({}, self.state.added);
+          next[i] = !next[i];
+          self.setState({ added: next });
+        }
+      };
+    });
+    return {
+      items: items,
+      cartLabel: count === 0
+        ? 'Add items to your pickup order'
+        : (count === 1 ? 'Add 1 item to your pickup order' : 'Add ' + count + ' items to your pickup order')
+    };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+button{font:inherit}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-07-BuyAgain" data-title="07 · Buy it again"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #FFFFFF;">
+
+  <div style="height: 59px; flex-shrink: 0;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 8px 16px;">
+    <a href="06-RunningLow.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 22px; line-height: 28px; font-weight: 700;">Buy it again</span>
+    <a href="08-Cart.dc.html" aria-label="Cart" style="width: 44px; height: 44px; margin-right: -10px; display: flex; align-items: center; justify-content: flex-end; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h2.2l2.4 11.2a1.8 1.8 0 0 0 1.8 1.4h8.4a1.8 1.8 0 0 0 1.8-1.4L21 7H6"></path><circle cx="9.5" cy="20" r="1.3"></circle><circle cx="17.5" cy="20" r="1.3"></circle></svg></a>
+  </div>
+
+  <p style="flex-shrink: 0; margin: 4px 16px 12px 16px; font-size: 16px; line-height: 20px; color: #5E5D5A;">Things you have bought before at #4471. 2 have in-store coupons today — they apply at the register, nothing to clip.</p>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 16px 184px 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start;">
+    <sc-for list="{{tiles}}" as="tile" hint-placeholder-count="4">
+      <div style="padding: 12px; box-sizing: border-box; border: 1px solid #D8D8D5; border-radius: 16px;">
+        <div style="height: 88px; position: relative; border-radius: 8px; background: #F4F4F4; display: flex; align-items: center; justify-content: center; color: #C6C6C8;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.4"></rect><path d="M3.5 16.5 8.5 11l4 4 3-2.5 4.8 4"></path><circle cx="8.6" cy="9.2" r="1.4"></circle></svg>
+          <sc-if value="{{tile.onSale}}" hint-placeholder-val="{{ true }}">
+            <span style="position: absolute; top: 6px; left: 6px; padding: 2px 8px; background: #FDF3E0; border-radius: 4px; font-size: 11px; line-height: 14px; font-weight: 500; color: #8A5A00;">Coupon</span>
+          </sc-if>
+        </div>
+        <div style="font-size: 16px; line-height: 18px; margin-top: 8px; min-height: 54px;">{{tile.name}}</div>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <span style="color: #EC6A2C; display: flex;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.2 6L12 16.8 6.5 19.6l1.2-6L3.2 9.4l6.1-.8z"></path></svg></span>
+          <span style="font-size: 11px; line-height: 14px; font-weight: 500; color: #5E5D5A;">{{tile.rating}}</span>
+        </div>
+        <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-top: 4px;">
+          <sc-if value="{{tile.onSale}}" hint-placeholder-val="{{ true }}">
+            <span style="font-size: 13px; line-height: 20px; color: #5E5D5A; text-decoration: line-through;">{{tile.wasPrice}}</span>
+          </sc-if>
+          <span style="font-size: 16px; line-height: 20px; font-weight: 500; color: {{tile.priceColor}};">{{tile.price}}</span>
+        </div>
+        <button type="button" onClick="{{ tile.toggle }}" style="{{ tile.btnStyle }}">{{ tile.btnLabel }}</button>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 44px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5; box-shadow: 0 -2px 14px rgba(0,0,0,0.07);">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 10px 12px; box-sizing: border-box; background: #FDF3E0; border-radius: 12px;">
+      <span style="color: #8A5A00; display: flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.2v.2"></path></svg></span>
+      <span style="font-size: 13px; line-height: 18px; color: #8A5A00;">Your prescription is still the priority — adding items won't delay it.</span>
+    </div>
+    <a href="08-Cart.dc.html" style="display: block; text-align: center; padding: 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">{{cartLabel}}</a>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="07-BuyAgain">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { added: { 0: true } };
+  }
+  renderVals() {
+    var self = this;
+    var data = [
+      { name: 'Life Savers Wint-O-Green Breath Mints, 6.25 OZ', price: '$3.89', onSale: false, rating: '4.5 · 516' },
+      { name: 'e.l.f. Power Grip Primer, 0.811 OZ', wasPrice: '$11.00', price: '$9.00', onSale: true, rating: '4.7 · 1.2k' },
+      { name: 'CVS Health Vitamin D3 2000 IU, 200 ct', wasPrice: '$10.49', price: '$8.49', onSale: true, rating: '4.6 · 842' },
+      { name: 'Tylenol Extra Strength 500mg, 100 ct', price: '$9.99', onSale: false, rating: '4.8 · 3.1k' }
+    ];
+    var btnBase = 'width: 100%; min-height: 44px; margin-top: 10px; padding: 11px 12px; border-radius: 22px; font-size: 16px; line-height: 20px; font-weight: 500; cursor: pointer; ';
+    var count = 3;
+    var tiles = data.map(function (d, i) {
+      var on = !!self.state.added[i];
+      if (on && i !== 0) { count = count + 1; }
+      return {
+        name: d.name,
+        price: d.price,
+        wasPrice: d.wasPrice,
+        onSale: !!d.onSale,
+        priceColor: d.onSale ? '#8A5A00' : '#1A1A19',
+        rating: d.rating,
+        btnLabel: on ? 'Added' : 'Add to cart',
+        btnStyle: btnBase + (on
+          ? 'background: #E8F3FE; color: #004D99; border: 1px solid #004D99;'
+          : 'background: #004D99; color: #FFFFFF; border: 1px solid #004D99;'),
+        toggle: function () {
+          var next = Object.assign({}, self.state.added);
+          next[i] = !next[i];
+          self.setState({ added: next });
+        }
+      };
+    });
+    return { tiles: tiles, cartLabel: 'Review pickup order · ' + count + ' items' };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+button{font:inherit}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-08-Cart" data-title="08 · Pickup order"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #F9F7F5;">
+
+  <div style="height: 59px; flex-shrink: 0;"></div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 8px 16px;">
+    <a href="06-RunningLow.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; color: #1A1A19;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 22px; line-height: 28px; font-weight: 700;">Pickup order</span>
+    <span style="width: 44px;"></span>
+  </div>
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; gap: 10px; margin: 0 16px 12px 16px; padding: 12px 14px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 12px;">
+    <span style="color: #5E5D5A; display: flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg></span>
+    <span style="flex-grow: 1; font-size: 16px; line-height: 20px; font-weight: 500;">Picking up at #4471 · Shadyside</span>
+  </div>
+
+  <div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-bottom: 170px;">
+
+  <p style="margin: 0 16px 6px 16px; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">PRESCRIPTIONS · 2</p>
+  <div style="margin: 0 16px 16px 16px; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px;">
+      <span style="flex-grow: 1; font-size: 16px; line-height: 18px;">Sulfamethoxazole-Tmp Ds Tablet</span>
+      <span style="font-size: 16px; line-height: 20px; font-weight: 500;">$10.00</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px;">
+      <span style="flex-grow: 1; font-size: 16px; line-height: 18px;">Tobramycin-Dexameth Ophth Susp</span>
+      <span style="font-size: 16px; line-height: 20px; font-weight: 500; color: #1E7A6F;">$0.00</span>
+    </div>
+  </div>
+
+  <p style="margin: 0 16px 6px 16px; font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">ADDED WHILE YOU WAIT · 3</p>
+  <div style="margin: 0 16px 16px 16px; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+    <sc-for list="{{lines}}" as="line" hint-placeholder-count="3">
+      <div style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #D8D8D5;">
+        <span style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; background: #F4F4F4;"></span>
+        <span style="flex-grow: 1;">
+          <span style="display: block; font-size: 16px; line-height: 18px;">{{line.name}}</span>
+          <span style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+            <sc-if value="{{line.onSale}}" hint-placeholder-val="{{ true }}">
+              <span style="font-size: 13px; line-height: 20px; color: #5E5D5A; text-decoration: line-through;">{{line.wasPrice}}</span>
+            </sc-if>
+            <span style="font-size: 16px; line-height: 20px; font-weight: 500; color: {{line.priceColor}};">{{line.price}}</span>
+            <sc-if value="{{line.onSale}}" hint-placeholder-val="{{ true }}">
+              <span style="padding: 2px 8px; background: #FDF3E0; border-radius: 4px; font-size: 11px; line-height: 14px; font-weight: 500; color: #8A5A00;">Coupon</span>
+            </sc-if>
+          </span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 2px; border: 1px solid #C6C6C8; border-radius: 22px; padding: 2px;">
+          <button type="button" onClick="{{ line.dec }}" aria-label="Decrease quantity" style="width: 36px; height: 36px; border: 0; background: transparent; border-radius: 18px; color: #004D99; font-size: 18px; line-height: 20px; cursor: pointer;">−</button>
+          <span style="min-width: 22px; text-align: center; font-size: 16px; line-height: 20px; font-weight: 500;">{{line.qty}}</span>
+          <button type="button" onClick="{{ line.inc }}" aria-label="Increase quantity" style="width: 36px; height: 36px; border: 0; background: transparent; border-radius: 18px; color: #004D99; font-size: 18px; line-height: 20px; cursor: pointer;">+</button>
+        </span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="margin: 0 16px; padding: 14px 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px;">
+    <div style="display: flex; justify-content: space-between; font-size: 16px; line-height: 20px;"><span>Store items</span><span>{{subtotal}}</span></div>
+    <div style="display: flex; justify-content: space-between; font-size: 16px; line-height: 20px; margin-top: 6px; color: #1E7A6F;"><span>In-store coupons applied</span><span>{{savings}}</span></div>
+    <div style="display: flex; justify-content: space-between; font-size: 16px; line-height: 20px; margin-top: 6px;"><span>Prescription copay</span><span>$10.00</span></div>
+    <div style="height: 1px; background: #D8D8D5; margin: 10px 0;"></div>
+    <div style="display: flex; justify-content: space-between; font-size: 18px; line-height: 24px; font-weight: 700;"><span>Pay at register</span><span>{{total}}</span></div>
+  </div>
+
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 44px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5; box-shadow: 0 -2px 14px rgba(0,0,0,0.07);">
+    <a href="09-Ready.dc.html" style="display: block; text-align: center; padding: 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">Add to my pickup</a>
+    <p style="margin: 8px 0 0 0; text-align: center; font-size: 13px; line-height: 18px; color: #5E5D5A;">Dana bags these with your prescription. Nothing is charged until you're at the register.</p>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="08-Cart">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { qty: [1, 1, 1] };
+  }
+  renderVals() {
+    var self = this;
+    var data = [
+      { name: 'CVS Health Vitamin D3 2000 IU', was: 10.49, unit: 8.49, onSale: true },
+      { name: "Nature's Bounty Fish Oil 1400mg", was: 21.99, unit: 17.99, onSale: true },
+      { name: 'Life Savers Wint-O-Green Mints', was: 3.89, unit: 3.89, onSale: false }
+    ];
+    var full = 0;
+    var saved = 0;
+    var lines = data.map(function (d, i) {
+      var q = self.state.qty[i];
+      full = full + d.was * q;
+      saved = saved + (d.was - d.unit) * q;
+      return {
+        name: d.name,
+        price: '$' + d.unit.toFixed(2),
+        wasPrice: '$' + d.was.toFixed(2),
+        onSale: d.onSale,
+        priceColor: d.onSale ? '#8A5A00' : '#1A1A19',
+        qty: q,
+        inc: function () {
+          var next = self.state.qty.slice();
+          next[i] = next[i] + 1;
+          self.setState({ qty: next });
+        },
+        dec: function () {
+          var next = self.state.qty.slice();
+          next[i] = next[i] > 1 ? next[i] - 1 : 1;
+          self.setState({ qty: next });
+        }
+      };
+    });
+    return {
+      lines: lines,
+      subtotal: '$' + full.toFixed(2),
+      savings: '−$' + saved.toFixed(2),
+      total: '$' + (full - saved + 10).toFixed(2)
+    };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+button{font:inherit}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+<template id="t-09-Ready" data-title="09 · Ready — register 2"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; background: #F9F7F5;">
+
+  <div style="height: 59px;"></div>
+
+  <div style="display: flex; align-items: flex-start; gap: 10px; margin: 0 16px 16px 16px; padding: 12px 14px; box-sizing: border-box; background: #E6F4F1; border: 1px solid #1E7A6F; border-radius: 12px;">
+    <span style="color: #1E7A6F; display: flex; padding-top: 1px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"></rect><path d="M10.5 18.5h3"></path></svg></span>
+    <span style="flex-grow: 1; font-size: 13px; line-height: 18px; color: #1A1A19;"><strong style="font-weight: 700;">Text delivered 9:49 AM</strong> — Your CVS order is ready. Come to register 2.</span>
+  </div>
+
+  <div style="text-align: center; padding: 0 16px;">
+    <h1 style="margin: 0; font-size: 24px; line-height: 32px; font-weight: 700;">Your order is ready</h1>
+    <p style="margin: 6px 0 0 0; font-size: 16px; line-height: 20px; color: #5E5D5A;">Walk up to <strong style="font-weight: 700; color: #1A1A19;">register 2</strong>. Show this screen — you don't have to say a word.</p>
+  </div>
+
+  <div style="margin: 16px; padding: 20px 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; text-align: center;">
+    <div style="font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.6px; color: #5E5D5A;">PICKUP CODE</div>
+    <div style="font-size: 44px; line-height: 52px; font-weight: 700; letter-spacing: 8px; margin-top: 4px;">4712</div>
+    <div style="display: flex; align-items: flex-end; justify-content: center; gap: 2px; height: 64px; margin-top: 14px;">
+      <sc-for list="{{bars}}" as="bar" hint-placeholder-count="30">
+        <span style="{{bar.style}}"></span>
+      </sc-for>
+    </div>
+    <div style="font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 10px;">Margaret T. · CVS #4471 · 2 prescriptions + 3 items</div>
+  </div>
+
+  <div style="margin: 0 16px; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px;">
+      <span style="color: #1E7A6F; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">2 prescriptions, bagged</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px;">
+      <span style="color: #1E7A6F; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">3 store items, in the same bag</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px;">
+      <span style="color: #004D99; display: flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17z"></path></svg></span>
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">Dana knows to write, not speak</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 44px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5; box-shadow: 0 -2px 14px rgba(0,0,0,0.07);">
+    <a href="10-Done.dc.html" style="display: block; text-align: center; padding: 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">I'm at the register</a>
+    <a href="04-MessagePharmacist.dc.html" style="display: block; text-align: center; margin-top: 10px; font-size: 16px; line-height: 20px; font-weight: 500;">Message the pharmacist</a>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="09-Ready">
+class Component extends DCLogic {
+  renderVals() {
+    var widths = [3, 1, 2, 1, 1, 4, 1, 2, 3, 1, 1, 2, 4, 1, 3, 1, 2, 2, 1, 4, 1, 1, 3, 2, 1, 1, 4, 2, 1, 3];
+    return {
+      bars: widths.map(function (w, i) {
+        return { style: 'display: block; width: ' + w + 'px; height: ' + (i % 5 === 0 ? 64 : 56) + 'px; background: #1A1A19;' };
+      })
+    };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+</style>
+<template id="t-10-Done" data-title="10 · Pickup complete"><div style="width: 402px; height: 874px; box-sizing: border-box; position: relative; overflow: hidden; background: linear-gradient(#F2F7FC, #FCFDFE);">
+
+  <div style="height: 59px;"></div>
+
+  <div style="text-align: center; padding: 24px 16px 0 16px;">
+    <span style="display: inline-flex; width: 56px; height: 56px; border-radius: 28px; background: #1E7A6F; color: #FFFFFF; align-items: center; justify-content: center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg></span>
+    <h1 style="margin: 16px 0 0 0; font-size: 24px; line-height: 32px; font-weight: 700;">All set, Margaret</h1>
+    <p style="margin: 6px 0 0 0; font-size: 16px; line-height: 20px; color: #5E5D5A;">You picked up without speaking to anyone. Total time in store: 14 minutes.</p>
+  </div>
+
+  <div style="margin: 24px 16px 0 16px; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px;">
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">2 prescriptions</span>
+      <span style="font-size: 16px; line-height: 20px; font-weight: 500;">$10.00</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px;">
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px;">3 store items</span>
+      <span style="font-size: 16px; line-height: 20px; font-weight: 500;">$34.37</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5; margin-left: 16px;"></div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #E6F4F1;">
+      <span style="flex-grow: 1; font-size: 16px; line-height: 20px; color: #1E7A6F;">ExtraCare savings</span>
+      <span style="font-size: 16px; line-height: 20px; font-weight: 700; color: #1E7A6F;">−$5.00</span>
+    </div>
+    <div style="height: 1px; background: #D8D8D5;"></div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px;">
+      <span style="flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 700;">Paid at register 2</span>
+      <span style="font-size: 18px; line-height: 24px; font-weight: 700;">$39.37</span>
+    </div>
+  </div>
+
+  <div style="margin: 16px; padding: 16px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D8D8D5; border-radius: 16px;">
+    <div style="font-size: 16px; line-height: 20px; font-weight: 500;">How did silent check-in go?</div>
+    <div style="font-size: 13px; line-height: 18px; color: #5E5D5A; margin-top: 2px;">Optional. Your answer goes to store #4471.</div>
+    <div style="display: flex; gap: 6px; margin-top: 12px;">
+      <sc-for list="{{stars}}" as="star" hint-placeholder-count="5">
+        <button type="button" onClick="{{ star.pick }}" aria-label="{{ star.label }}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: {{ star.color }}; display: flex; align-items: center; justify-content: center;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.2 6L12 16.8 6.5 19.6l1.2-6L3.2 9.4l6.1-.8z"></path></svg>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; margin: 0 16px; padding: 14px 16px; box-sizing: border-box; background: #E8F3FE; border: 1px solid #B4CAE1; border-radius: 16px;">
+    <span style="color: #004D99; display: flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5l3 2"></path></svg></span>
+    <span style="flex-grow: 1;">
+      <span style="display: block; font-size: 16px; line-height: 20px; font-weight: 500; color: #004D99;">Use silent check-in next time?</span>
+      <span style="display: block; font-size: 13px; line-height: 18px; color: #5E5D5A;">We'll offer it automatically when you arrive.</span>
+    </span>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 44px 16px; box-sizing: border-box; background: #FFFFFF; border-top: 1px solid #D8D8D5;">
+    <a href="Main.dc.html" style="display: block; text-align: center; padding: 16px; box-sizing: border-box; background: #004D99; color: #FFFFFF; border-radius: 28px; font-size: 18px; line-height: 24px; font-weight: 700;">Done</a>
+  </div>
+
+  <div style="position: absolute; left: 50%; bottom: 10px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #1A1A19; opacity: 0.25;"></div>
+
+</div></template>
+<script type="text/x-screen" data-id="10-Done">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { rating: 0 };
+  }
+  renderVals() {
+    var self = this;
+    var out = [];
+    for (var i = 1; i <= 5; i++) {
+      (function (n) {
+        out.push({
+          label: n + ' of 5',
+          color: n <= self.state.rating ? '#EC6A2C' : '#DEDEDE',
+          pick: function () { self.setState({ rating: n }); }
+        });
+      })(i);
+    }
+    return { stars: out };
+  }
+}
+</script>
+<style>
+
+a{color:#0066CC;text-decoration:none}
+a:hover{color:#004D99}
+button{font:inherit}
+</style>
+
+<script>
+(function () {
+  var ORDER = ["Main", "02-SkipCounter", "03-CheckedIn", "04-MessagePharmacist", "05-MessageSent", "06-RunningLow", "07-BuyAgain", "08-Cart", "09-Ready", "10-Done"];
+  var params = new URLSearchParams(location.search);
+  if (params.get('bare')) document.body.classList.add('bare');
+
+  // Tiny stand-in for the design canvas runtime: renderVals() + setState() + {{holes}}, <sc-for>, <sc-if>.
+  function DCLogic(props) { this.props = props || {}; this.state = {}; }
+  DCLogic.prototype.setState = function (patch) { Object.assign(this.state, patch); render(); };
+  DCLogic.prototype.renderVals = function () { return {}; };
+  window.DCLogic = DCLogic;
+
+  var classes = {};
+  document.querySelectorAll('script[type="text/x-screen"]').forEach(function (s) {
+    classes[s.dataset.id] = new Function('DCLogic', s.textContent + '\nreturn Component;')(DCLogic);
+  });
+
+  function lookup(scope, path) {
+    return path.trim().split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope);
+  }
+  var HOLE = /\{\{\s*([^}]+?)\s*\}\}/g;
+  function fill(str, scope) {
+    return str.replace(HOLE, function (_, p) { var v = lookup(scope, p); return v == null ? '' : String(v); });
+  }
+  function soleHole(str) { var m = str.match(/^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/); return m && m[1]; }
+
+  function walk(node, scope) {
+    if (node.nodeType === 3) {
+      if (node.nodeValue.indexOf('{{') > -1) node.nodeValue = fill(node.nodeValue, scope);
+      return;
+    }
+    if (node.nodeType !== 1) return;
+    var tag = node.tagName.toLowerCase();
+    if (tag === 'sc-for') {
+      var list = lookup(scope, soleHole(node.getAttribute('list')) || '') || [];
+      var as = node.getAttribute('as');
+      var frag = document.createDocumentFragment();
+      list.forEach(function (item) {
+        var s = Object.create(scope); s[as] = item;
+        Array.prototype.forEach.call(node.childNodes, function (c) {
+          var copy = c.cloneNode(true); frag.appendChild(copy); walk(copy, s);
+        });
+      });
+      node.replaceWith(frag);
+      return;
+    }
+    if (tag === 'sc-if') {
+      var keep = !!lookup(scope, soleHole(node.getAttribute('value')) || '');
+      var kids = Array.prototype.slice.call(node.childNodes);
+      if (keep) { node.replaceWith.apply(node, kids); kids.forEach(function (k) { walk(k, scope); }); }
+      else node.remove();
+      return;
+    }
+    Array.prototype.slice.call(node.attributes).forEach(function (a) {
+      if (a.name.indexOf('on') === 0) {
+        var fn = lookup(scope, soleHole(a.value) || '');
+        node.removeAttribute(a.name);
+        if (typeof fn === 'function') node.addEventListener(a.name.slice(2), fn);
+      } else if (a.value.indexOf('{{') > -1) {
+        node.setAttribute(a.name, fill(a.value, scope));
+      }
+    });
+    if (tag === 'a') {
+      var href = node.getAttribute('href') || '';
+      if (/\.dc\.html$/.test(href)) node.setAttribute('href', '#' + href.replace('.dc.html', ''));
+    }
+    Array.prototype.slice.call(node.childNodes).forEach(function (c) { walk(c, scope); });
+  }
+
+  var screenEl = document.getElementById('screen');
+  var current = null, instance = null;
+
+  function render() {
+    var keep = [];
+    screenEl.querySelectorAll('*').forEach(function (el, i) { if (el.scrollTop) keep.push([i, el.scrollTop]); });
+    var tpl = document.getElementById('t-' + current);
+    var frag = tpl.content.cloneNode(true);
+    var holder = document.createElement('div');
+    holder.appendChild(frag);
+    walk(holder, instance.renderVals());
+    screenEl.replaceChildren.apply(screenEl, Array.prototype.slice.call(holder.childNodes));
+    var all = screenEl.querySelectorAll('*');
+    keep.forEach(function (k) { if (all[k[0]]) all[k[0]].scrollTop = k[1]; });
+  }
+
+  function show(id) {
+    if (ORDER.indexOf(id) < 0) id = ORDER[0];
+    current = id;
+    instance = new classes[id]({});
+    render();
+    document.title = document.getElementById('t-' + id).dataset.title + ' · CVS Iteration 1';
+    jump.value = id;
+  }
+
+  var jump = document.getElementById('jump');
+  ORDER.forEach(function (id) {
+    var o = document.createElement('option');
+    o.value = id; o.textContent = document.getElementById('t-' + id).dataset.title;
+    jump.appendChild(o);
+  });
+  jump.addEventListener('change', function () { location.hash = jump.value; });
+  document.getElementById('restart').addEventListener('click', function () { location.hash = ORDER[0]; });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
+
+  function fit() {
+    var dev = document.getElementById('device');
+    var s;
+    if (document.body.classList.contains('bare')) s = 1;
+    else if (window.innerWidth <= 520) s = window.innerWidth / 402;
+    else s = Math.min(1, (window.innerHeight - 110) / 874, (window.innerWidth - 40) / 402);
+    screenEl.style.transform = 'scale(' + s + ')';
+    dev.style.width = 402 * s + 'px';
+    dev.style.height = 874 * s + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+  show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
